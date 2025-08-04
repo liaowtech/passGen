@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>passGen - 智能密码生成器</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span>🔐</span>
+                <h1>passGen</h1>
+            </div>
+            <nav>
+                <button class="nav-btn active" data-tab="generator">密码生成</button>
+                <button class="nav-btn" data-tab="strength">强度检测</button>
+                <button class="nav-btn" data-tab="batch">批量生成</button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- 密码生成器 -->
+            <div class="tab-content active" id="generator">
+                <div class="card">
+                    <h2>密码生成器</h2>
+                    
+                    <div class="settings">
+                        <div class="setting-group">
+                            <label>密码长度: <span id="length-value">16</span></label>
+                            <input type="range" id="password-length" min="8" max="128" value="16">
+                        </div>
+
+                        <div class="setting-group">
+                            <label>字符类型:</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" id="uppercase" checked> 大写字母</label>
+                                <label><input type="checkbox" id="lowercase" checked> 小写字母</label>
+                                <label><input type="checkbox" id="numbers" checked> 数字</label>
+                                <label><input type="checkbox" id="symbols" checked> 特殊字符</label>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <label><input type="checkbox" id="exclude-similar"> 排除相似字符</label>
+                        </div>
+
+                        <div class="setting-group">
+                            <label>排除字符:</label>
+                            <input type="text" id="exclude-chars" placeholder="输入要排除的字符">
+                        </div>
+                    </div>
+
+                    <button class="generate-btn" id="generate-btn">生成密码</button>
+
+                    <div class="password-display">
+                        <input type="text" id="password-output" readonly>
+                        <button id="copy-btn">复制</button>
+                        <button id="refresh-btn">刷新</button>
+                    </div>
+
+                    <div class="strength-meter">
+                        <div class="strength-label">
+                            <span>密码强度</span>
+                            <span id="strength-score">0</span>
+                        </div>
+                        <div class="strength-bar">
+                            <div id="strength-fill"></div>
+                        </div>
+                        <div id="strength-text">请生成密码</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>最近生成的密码</h3>
+                    <div id="history-list">
+                        <div class="empty">暂无历史记录</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 强度检测 -->
+            <div class="tab-content" id="strength">
+                <div class="card">
+                    <h2>密码强度检测</h2>
+                    <textarea id="check-password" placeholder="输入要检测的密码..."></textarea>
+                    <div class="check-results">
+                        <div class="result-item">
+                            <span>强度等级</span>
+                            <span id="check-strength">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>评分</span>
+                            <span id="check-score">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>熵值</span>
+                            <span id="check-entropy">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>破解时间</span>
+                            <span id="check-crack-time">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 批量生成 -->
+            <div class="tab-content" id="batch">
+                <div class="card">
+                    <h2>批量密码生成</h2>
+                    <div class="batch-settings">
+                        <div class="setting-group">
+                            <label>生成数量:</label>
+                            <input type="number" id="batch-count" min="1" max="100" value="10">
+                        </div>
+                        <button class="generate-btn" id="batch-generate-btn">批量生成</button>
+                    </div>
+                    <div class="batch-results">
+                        <div class="batch-header">
+                            <span>生成的密码</span>
+                            <button id="export-btn">导出CSV</button>
+                        </div>
+                        <div id="batch-list">
+                            <div class="empty">点击生成按钮开始</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 passGen - 安全、便捷的密码生成工具</p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html> 
