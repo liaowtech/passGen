@@ -295,10 +295,15 @@ function exportToCSV() {
     showToast('CSV文件已下载', 'success');
 }
 
+/**
+ * 显示提示消息（toast），3秒后自动消失
+ * @param {string} message - 要显示的消息内容
+ * @param {string} [type='info'] - 消息类型（如 'success', 'error', 'info'），用于样式区分
+ */
 function showToast(message, type = 'info') {
     const toast = document.getElementById('toast');
     toast.textContent = message;
-    toast.className = `toast show ${type}`;
+    toast.className = `toast show ${type}`; 
     
     setTimeout(() => {
         toast.classList.remove('show');
